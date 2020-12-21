@@ -9,7 +9,6 @@ all: $(DEP) $(BIN)
 	$(CC) $(CFLAGS) -M $< -o $@
 
 install:
-	install -m 644 -D $(BIN).json $(DESTDIR)/etc/gp_apps/$(BIN)/layout.json
 	install -D $(BIN) -t $(DESTDIR)/usr/bin/
 
 -include $(DEP)
