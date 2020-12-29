@@ -30,7 +30,7 @@ static int slider_playback_callback(gp_widget_event *ev)
 {
 	long volume = ev->self->i->val;
 
-	if (ev->type != GP_WIDGET_EVENT_ACTION)
+	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
 
 	snd_mixer_selem_set_playback_volume_all(ev->self->priv, volume);
@@ -49,7 +49,6 @@ static int mixer_playback_callback(snd_mixer_elem_t *elem,
 		long volume;
 
 		snd_mixer_selem_get_playback_volume(elem, 0, &volume);
-
 		gp_widget_int_set(grp->slider, volume);
 	}
 
@@ -95,7 +94,7 @@ static int chbox_playback_callback(gp_widget_event *ev)
 {
 	int val = ev->self->chbox->val;
 
-	if (ev->type != GP_WIDGET_EVENT_ACTION)
+	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
 
 	snd_mixer_selem_set_playback_switch_all(ev->self->priv, val);
@@ -129,7 +128,7 @@ static int enum_playback_callback(gp_widget_event *ev)
 {
 	unsigned int sel = gp_widget_choice_get(ev->self);
 
-	if (ev->type != GP_WIDGET_EVENT_ACTION)
+	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
 
 	snd_mixer_selem_set_enum_item(ev->self->priv, SND_MIXER_SCHN_MONO, sel);
@@ -222,7 +221,7 @@ static int slider_capture_callback(gp_widget_event *ev)
 {
 	long volume = ev->self->i->val;
 
-	if (ev->type != GP_WIDGET_EVENT_ACTION)
+	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
 
 	snd_mixer_selem_set_capture_volume_all(ev->self->priv, volume);
@@ -256,7 +255,7 @@ static int chbox_capture_callback(gp_widget_event *ev)
 {
 	int val = ev->self->chbox->val;
 
-	if (ev->type != GP_WIDGET_EVENT_ACTION)
+	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
 
 	snd_mixer_selem_set_capture_switch_all(ev->self->priv, val);
