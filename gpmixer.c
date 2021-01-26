@@ -92,7 +92,7 @@ static gp_widget *create_playback_slider(snd_mixer_elem_t *elem)
 
 static int chbox_playback_callback(gp_widget_event *ev)
 {
-	int val = ev->self->chbox->val;
+	int val = ev->self->checkbox->val;
 
 	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
@@ -150,7 +150,7 @@ static gp_widget *create_playback_enum(snd_mixer_elem_t *elem)
 
 	snd_mixer_selem_get_enum_item(elem, SND_MIXER_SCHN_MONO, &sel);
 
-	return gp_widget_choice_new(choices, n, sel, enum_playback_callback, elem);
+	return gp_widget_radiobutton_new(choices, n, sel, enum_playback_callback, elem);
 }
 
 static int is_playback(snd_mixer_elem_t *elem)
@@ -253,7 +253,7 @@ static gp_widget *create_capture_slider(snd_mixer_elem_t *elem)
 
 static int chbox_capture_callback(gp_widget_event *ev)
 {
-	int val = ev->self->chbox->val;
+	int val = ev->self->checkbox->val;
 
 	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
