@@ -178,7 +178,7 @@ static gp_widget *create_playback_widgets(snd_mixer_t *mixer)
 	snd_mixer_elem_t *elem = snd_mixer_first_elem(mixer);
 	unsigned int i = 0, count = playback_count(mixer);
 
-	gp_widget *playback = gp_widget_grid_new(count, 3);
+	gp_widget *playback = gp_widget_grid_new(count, 3, 0);
 
 	struct elem_group *playback_groups = malloc(sizeof(struct elem_group) * count);
 	if (!count)
@@ -302,7 +302,7 @@ static gp_widget *create_capture_widgets(snd_mixer_t *mixer)
 	snd_mixer_elem_t *elem = snd_mixer_first_elem(mixer);
 	unsigned int i = 0, count = capture_count(mixer);
 
-	gp_widget *capture = gp_widget_grid_new(count, 3);
+	gp_widget *capture = gp_widget_grid_new(count, 3, 0);
 
 	capture->align = GP_VFILL | GP_HCENTER;
 	capture->grid->row_fills[0] = 1;
@@ -388,7 +388,7 @@ int main(int argc, char *argv[])
 
 	const char *tab_labels[] = {"Playback", "Capture"};
 
-	gp_widget *layout = gp_widget_grid_new(1, 1);
+	gp_widget *layout = gp_widget_grid_new(1, 1, 0);
 	gp_widget *tabs = gp_widget_tabs_new(2, 0, tab_labels);
 	gp_widget *playback = create_playback_widgets(mixer);
 	gp_widget *capture = create_capture_widgets(mixer);
