@@ -305,9 +305,10 @@ static gp_widget *create_capture_widgets(snd_mixer_t *mixer)
 	gp_widget *capture = gp_widget_grid_new(count, 3, 0);
 
 	capture->align = GP_VFILL | GP_HCENTER;
-	capture->grid->row_fills[0] = 1;
-	capture->grid->row_fills[1] = 0;
-	capture->grid->row_fills[2] = 0;
+	//TODO we probably need an API for this
+	capture->grid->row_s[0].fill = 1;
+	capture->grid->row_s[1].fill = 0;
+	capture->grid->row_s[2].fill = 0;
 
 	for (; elem != NULL; elem = snd_mixer_elem_next(elem)) {
 		if (!is_capture(elem))
