@@ -389,7 +389,7 @@ int main(int argc, char *argv[])
 	const char *tab_labels[] = {"Playback", "Capture"};
 
 	gp_widget *layout = gp_widget_grid_new(1, 1, 0);
-	gp_widget *tabs = gp_widget_tabs_new(2, 0, tab_labels);
+	gp_widget *tabs = gp_widget_tabs_new(2, 0, tab_labels, 0);
 	gp_widget *playback = create_playback_widgets(mixer);
 	gp_widget *capture = create_capture_widgets(mixer);
 
