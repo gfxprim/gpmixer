@@ -49,7 +49,7 @@ static int mixer_playback_callback(snd_mixer_elem_t *elem,
 		long volume;
 
 		snd_mixer_selem_get_playback_volume(elem, 0, &volume);
-		gp_widget_int_set(grp->slider, volume);
+		gp_widget_int_val_set(grp->slider, volume);
 	}
 
 	if (grp->chbox) {
@@ -65,7 +65,7 @@ static int mixer_playback_callback(snd_mixer_elem_t *elem,
 
 		snd_mixer_selem_get_enum_item(elem, SND_MIXER_SCHN_MONO, &sel);
 
-		gp_widget_choice_set(grp->choice, sel);
+		gp_widget_choice_sel_set(grp->choice, sel);
 	}
 
 	return 0;
@@ -82,8 +82,8 @@ static gp_widget *create_playback_slider(snd_mixer_elem_t *elem)
 	snd_mixer_selem_get_playback_volume_range(elem, &min, &max);
 	snd_mixer_selem_get_playback_volume(elem, 0, &volume);
 
-	slider = gp_widget_slider_new(min, max, volume, GP_WIDGET_VERT,
-	                              slider_playback_callback, elem);
+	slider = gp_widget_slider_new(min, max, volume, GP_WIDGET_VERT);
+	gp_widget_event_handler_set(slider, slider_playback_callback, elem);
 
 	slider->align = GP_VFILL | GP_HCENTER;
 
@@ -126,7 +126,7 @@ static gp_widget *create_label(snd_mixer_elem_t *elem)
 
 static int enum_playback_callback(gp_widget_event *ev)
 {
-	unsigned int sel = gp_widget_choice_get(ev->self);
+	unsigned int sel = gp_widget_choice_sel_get(ev->self);
 
 	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
@@ -142,6 +142,7 @@ static gp_widget *create_playback_enum(snd_mixer_elem_t *elem)
 	char enums[n][64];
 	const char *choices[n];
 	unsigned int sel;
+	gp_widget *ret;
 
 	for (i = 0; i < n; i++) {
 		snd_mixer_selem_get_enum_item_name(elem, i, 64, enums[i]);
@@ -150,7 +151,10 @@ static gp_widget *create_playback_enum(snd_mixer_elem_t *elem)
 
 	snd_mixer_selem_get_enum_item(elem, SND_MIXER_SCHN_MONO, &sel);
 
-	return gp_widget_radiobutton_new(choices, n, sel, enum_playback_callback, elem);
+	ret = gp_widget_radiobutton_new(choices, n, sel);
+	gp_widget_event_handler_set(ret, enum_playback_callback, elem);
+
+	return ret;
 }
 
 static int is_playback(snd_mixer_elem_t *elem)
@@ -240,8 +244,8 @@ static gp_widget *create_capture_slider(snd_mixer_elem_t *elem)
 	snd_mixer_selem_get_capture_volume_range(elem, &min, &max);
 	snd_mixer_selem_get_capture_volume(elem, 0, &volume);
 
-	slider = gp_widget_slider_new(min, max, volume, GP_WIDGET_VERT,
-	                              slider_capture_callback, elem);
+	slider = gp_widget_slider_new(min, max, volume, GP_WIDGET_VERT);
+	gp_widget_event_handler_set(slider, slider_capture_callback, elem);
 
 	slider->align = GP_VFILL | GP_HCENTER;
 
