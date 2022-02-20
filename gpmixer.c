@@ -83,7 +83,7 @@ static gp_widget *create_playback_slider(snd_mixer_elem_t *elem)
 	snd_mixer_selem_get_playback_volume(elem, 0, &volume);
 
 	slider = gp_widget_slider_new(min, max, volume, GP_WIDGET_VERT);
-	gp_widget_event_handler_set(slider, slider_playback_callback, elem);
+	gp_widget_on_event_set(slider, slider_playback_callback, elem);
 
 	slider->align = GP_VFILL | GP_HCENTER;
 
@@ -152,7 +152,7 @@ static gp_widget *create_playback_enum(snd_mixer_elem_t *elem)
 	snd_mixer_selem_get_enum_item(elem, SND_MIXER_SCHN_MONO, &sel);
 
 	ret = gp_widget_radiobutton_new(choices, n, sel);
-	gp_widget_event_handler_set(ret, enum_playback_callback, elem);
+	gp_widget_on_event_set(ret, enum_playback_callback, elem);
 
 	return ret;
 }
@@ -245,7 +245,7 @@ static gp_widget *create_capture_slider(snd_mixer_elem_t *elem)
 	snd_mixer_selem_get_capture_volume(elem, 0, &volume);
 
 	slider = gp_widget_slider_new(min, max, volume, GP_WIDGET_VERT);
-	gp_widget_event_handler_set(slider, slider_capture_callback, elem);
+	gp_widget_on_event_set(slider, slider_capture_callback, elem);
 
 	slider->align = GP_VFILL | GP_HCENTER;
 
