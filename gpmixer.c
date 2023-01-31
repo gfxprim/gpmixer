@@ -112,7 +112,7 @@ static gp_widget *create_playback_chbox(snd_mixer_elem_t *elem)
 
 	snd_mixer_selem_get_playback_switch(elem, SND_MIXER_SCHN_MONO, &val);
 
-	chbox = gp_widget_checkbox_new(NULL, val, chbox_playback_callback, elem);
+	chbox = gp_widget_checkbox_new2(NULL, val, chbox_playback_callback, elem);
 
 	return chbox;
 }
@@ -277,7 +277,7 @@ static gp_widget *create_capture_chbox(snd_mixer_elem_t *elem)
 
 	snd_mixer_selem_get_capture_switch(elem, SND_MIXER_SCHN_MONO, &val);
 
-	chbox = gp_widget_checkbox_new(NULL, val, chbox_capture_callback, elem);
+	chbox = gp_widget_checkbox_new2(NULL, val, chbox_capture_callback, elem);
 
 	return chbox;
 }
