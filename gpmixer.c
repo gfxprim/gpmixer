@@ -356,10 +356,8 @@ static snd_mixer_t *do_mixer_init(uint8_t id)
 	return mixer;
 }
 
-static int mixer_poll_callback(struct gp_fd *self, struct pollfd *pfd)
+static int mixer_poll_callback(struct gp_fd *self)
 {
-	(void) pfd;
-
 	snd_mixer_handle_events(self->priv);
 
 	return 0;
@@ -377,9 +375,8 @@ static void init_poll(snd_mixer_t *mixer)
 
 	GP_DEBUG(1, "Initializing poll for %i fds\n", nfds);
 
-	for (i = 0; i < nfds; i++) {
-		gp_fds_add(gp_widgets_fds, pfds[i].fd, pfds[i].events, mixer_poll_callback, mixer);
-	}
+	for (i = 0; i < nfds; i++)
+		gp_widget_fds_add(pfds[i].fd, pfds[i].events, mixer_poll_callback, mixer);
 }
 
 int main(int argc, char *argv[])
