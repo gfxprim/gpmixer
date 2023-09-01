@@ -375,8 +375,23 @@ static void init_poll(snd_mixer_t *mixer)
 
 	GP_DEBUG(1, "Initializing poll for %i fds\n", nfds);
 
-	for (i = 0; i < nfds; i++)
-		gp_widget_fds_add(pfds[i].fd, pfds[i].events, mixer_poll_callback, mixer);
+	gp_fd *fds = malloc(sizeof(gp_fd) * nfds);
+
+	if (!fds) {
+		GP_WARN("Failed to allocate fds");
+		return;
+	}
+
+	for (i = 0; i < nfds; i++) {
+		fds[i] = (gp_fd) {
+			.fd = pfds[i].fd,
+			.events = pfds[i].events,
+			.event = mixer_poll_callback,
+			.priv = mixer,
+		};
+
+		gp_widget_poll_add(&fds[i]);
+	}
 }
 
 int main(int argc, char *argv[])
