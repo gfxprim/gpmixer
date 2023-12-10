@@ -394,6 +394,18 @@ static void init_poll(snd_mixer_t *mixer)
 	}
 }
 
+gp_app_info app_info = {
+	.name = "gpmixer",
+	.desc = "Audio mixer",
+	.version = "1.0",
+	.license = "GPL-2.0-or-later",
+	.url = "http://github.com/gfxprim/gpmixer",
+	.authors = (gp_app_info_author []) {
+		{.name = "Cyril Hrubis", .email = "metan@ucw.cz", .years = "2007-2020"},
+		{}
+	}
+};
+
 int main(int argc, char *argv[])
 {
 	snd_mixer_t *mixer = do_mixer_init(0);
@@ -414,7 +426,7 @@ int main(int argc, char *argv[])
 	gp_widget_tabs_put(tabs, 0, playback);
 	gp_widget_tabs_put(tabs, 1, capture);
 
-	gp_widgets_main_loop(layout, "alsa mixer", NULL, argc, argv);
+	gp_widgets_main_loop(layout, NULL, argc, argv);
 
 	return 0;
 }
