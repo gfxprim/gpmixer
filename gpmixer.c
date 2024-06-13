@@ -356,7 +356,7 @@ static snd_mixer_t *do_mixer_init(uint8_t id)
 	return mixer;
 }
 
-static int mixer_poll_callback(struct gp_fd *self)
+static enum gp_poll_event_ret mixer_poll_callback(struct gp_fd *self)
 {
 	snd_mixer_handle_events(self->priv);
 
