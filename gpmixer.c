@@ -57,7 +57,7 @@ static int mixer_playback_callback(snd_mixer_elem_t *elem,
 
 		snd_mixer_selem_get_playback_switch(elem, SND_MIXER_SCHN_MONO, &val);
 
-		gp_widget_checkbox_set(grp->chbox, val);
+		gp_widget_bool_set(grp->chbox, val);
 	}
 
 	if (grp->choice) {
@@ -92,7 +92,7 @@ static gp_widget *create_playback_slider(snd_mixer_elem_t *elem)
 
 static int chbox_playback_callback(gp_widget_event *ev)
 {
-	int val = ev->self->checkbox->val;
+	int val = gp_widget_bool_get(ev->self);
 
 	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
@@ -257,7 +257,7 @@ static gp_widget *create_capture_slider(snd_mixer_elem_t *elem)
 
 static int chbox_capture_callback(gp_widget_event *ev)
 {
-	int val = ev->self->checkbox->val;
+	int val = gp_widget_bool_get(ev->self);
 
 	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
