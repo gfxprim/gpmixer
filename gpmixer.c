@@ -28,7 +28,7 @@ struct elem_group *alloc_elem_groups(unsigned int count)
 
 static int slider_playback_callback(gp_widget_event *ev)
 {
-	long volume = ev->self->i->val;
+	long volume = gp_widget_int_val_get(ev->self);
 
 	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
@@ -223,7 +223,7 @@ static gp_widget *create_playback_widgets(snd_mixer_t *mixer)
 
 static int slider_capture_callback(gp_widget_event *ev)
 {
-	long volume = ev->self->i->val;
+	long volume = gp_widget_int_val_get(ev->self);
 
 	if (ev->type != GP_WIDGET_EVENT_WIDGET)
 		return 0;
@@ -309,10 +309,9 @@ static gp_widget *create_capture_widgets(snd_mixer_t *mixer)
 	gp_widget *capture = gp_widget_grid_new(count, 3, 0);
 
 	capture->align = GP_VFILL | GP_HCENTER;
-	//TODO we probably need an API for this
-	capture->grid->row_s[0].fill = 1;
-	capture->grid->row_s[1].fill = 0;
-	capture->grid->row_s[2].fill = 0;
+	gp_widget_grid_row_fill_set(capture, 0, 1);
+	gp_widget_grid_row_fill_set(capture, 1, 0);
+	gp_widget_grid_row_fill_set(capture, 2, 0);
 
 	for (; elem != NULL; elem = snd_mixer_elem_next(elem)) {
 		if (!is_capture(elem))
