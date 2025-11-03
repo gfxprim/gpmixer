@@ -389,7 +389,7 @@ static void init_poll(snd_mixer_t *mixer)
 			.priv = mixer,
 		};
 
-		gp_widget_poll_add(&fds[i]);
+		gp_app_poll_add(&fds[i]);
 	}
 }
 
